@@ -5,8 +5,8 @@ public enum FishLivEnv {
     /**
      *
      */
-    FRESH_WATER("fresh_water",true),
-    SEA_WATER("sea_water",false);
+    FRESH_WATER("fresh_water", true),
+    SEA_WATER("sea_water", false);
 
     private final String environnement;
     private final boolean seaWater;
@@ -16,5 +16,11 @@ public enum FishLivEnv {
         this.seaWater = seaWater;
     }
 
+    public String getEnvironnement() {
+        return this.environnement;
+    }
 
+    public boolean isSeaWater() {
+        return this.seaWater;
+    }
 }
