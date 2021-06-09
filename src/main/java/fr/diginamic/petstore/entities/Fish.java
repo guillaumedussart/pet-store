@@ -30,6 +30,11 @@ public class Fish extends Animal implements Serializable {
 
     }
 
+    public Fish(Date birth, String color, PetStore petStore, FishLivEnv livingEnv) {
+        super(birth, color, petStore);
+        this.livingEnv = livingEnv;
+    }
+
     /**
      * get field @Id
      *

@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "petstores")
-public class PetStore extends Address implements Serializable {
+public class PetStore implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,58 +19,39 @@ public class PetStore extends Address implements Serializable {
     private String managerName;
 
     @ManyToMany
-    @JoinTable(name = "petstore_product",
+    @JoinTable(name = "petstores_products",
             joinColumns = @JoinColumn(name = "id_petstore", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_product", referencedColumnName = "id")
     )
     private Set<Product> products;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name="id_petstore")
     private Set<Animal> animals;
 
+    @Embedded
+    private Address adresse;
 
     public PetStore() {
         products = new HashSet<>();
+        animals = new HashSet<>();
     }
 
-    public PetStore(String name, String managerName) {
-        this.name = name;
-        this.managerName = managerName;
-    }
-
-    public PetStore(int number, String street, int zipCode, String city, String name, String managerName) {
-        super(number, street, zipCode, city);
-        this.name = name;
-        this.managerName = managerName;
-    }
-
-    public PetStore(String name, String managerName, Set<Product> products) {
-        this.name = name;
-        this.managerName = managerName;
-        this.products = products;
-    }
-
-    public PetStore(int number, String street, int zipCode, String city, String name, String managerName, Set<Product> products) {
-        super(number, street, zipCode, city);
-        this.name = name;
-        this.managerName = managerName;
-        this.products = products;
-    }
-
-    public PetStore(String name, String managerName, Set<Product> products, Set<Animal> animals) {
+    public PetStore(String name, String managerName, Set<Product> products, Set<Animal> animals, Address adresse) {
         this.name = name;
         this.managerName = managerName;
         this.products = products;
         this.animals = animals;
+        this.adresse = adresse;
     }
 
-    public PetStore(int number, String street, int zipCode, String city, String name, String managerName, Set<Product> products, Set<Animal> animals) {
-        super(number, street, zipCode, city);
+    public PetStore(String name, String managerName, Set<Product> products, Address adresse) {
         this.name = name;
         this.managerName = managerName;
         this.products = products;
-        this.animals = animals;
+        this.adresse = adresse;
     }
+
 
     /**
      * get field @Id
@@ -180,5 +161,27 @@ public class PetStore extends Address implements Serializable {
      */
     public void setAnimals(Set<Animal> animals) {
         this.animals = animals;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("PetStore{");
+        sb.append("id=").append(id);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", managerName='").append(managerName).append('\'');
+        sb.append(", products=").append(products);
+        sb.append(", animals=").append(animals);
+        sb.append('}');
+        return sb.toString();
+    }
+
+    /**
+     * get field @Embedded
+     *
+     * @return adresse @Embedded
+
+     */
+    public Address getAdresse() {
+        return this.adresse;
     }
 }

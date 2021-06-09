@@ -27,6 +27,11 @@ public class Cat extends Animal implements Serializable {
         this.chipId = chipId;
     }
 
+    public Cat(Date birth, String color, PetStore petStore, String chipId) {
+        super(birth, color, petStore);
+        this.chipId = chipId;
+    }
+
     /**
      * get field @Id
      *

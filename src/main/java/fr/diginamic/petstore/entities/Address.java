@@ -3,15 +3,11 @@ package fr.diginamic.petstore.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
-@Table(name = "address")
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Address implements Serializable {
 
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
+@Embeddable
+public  class Address implements Serializable {
+
+
 
     @Column(name = "number", nullable = false, length = 10)
     private int number;
@@ -34,36 +30,6 @@ public abstract class Address implements Serializable {
         this.street = street;
         this.zipCode = zipCode;
         this.city = city;
-    }
-
-    /**
-     * get field @Id
-     @Column(name = "id")
-     @GeneratedValue
-
-      *
-      * @return id @Id
-     @Column(name = "id")
-     @GeneratedValue
-
-     */
-    public Long getId() {
-        return this.id;
-    }
-
-    /**
-     * set field @Id
-     @Column(name = "id")
-     @GeneratedValue
-
-      *
-      * @param id @Id
-     @Column(name = "id")
-     @GeneratedValue
-
-     */
-    public void setId(Long id) {
-        this.id = id;
     }
 
     /**

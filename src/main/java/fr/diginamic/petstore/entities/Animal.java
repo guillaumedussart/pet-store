@@ -7,7 +7,7 @@ import java.util.Date;
 @Entity
 @Table(name = "animals")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Animal implements Serializable {
+public class Animal implements Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -21,8 +21,8 @@ public abstract class Animal implements Serializable {
     private String color;
 
 
-    @ManyToOne()
-    @JoinColumn(name = "id_petstore")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "id_petstore",nullable = false)
     private PetStore petStore;
 
     public Animal(Date birth, String color) {
